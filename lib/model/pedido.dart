@@ -1,5 +1,5 @@
 import 'package:desenvolvimentomobile/model/cliente.dart';
-import 'package:desenvolvimentomobile/model/item-do-pedido.dart';
+import 'package:desenvolvimentomobile/model/item_do_pedido.dart';
 
 class Pedido {
   int? id;
