@@ -1,16 +1,37 @@
-# desenvolvimentomobile
+# Instalamento
 
-A new Flutter project.
+## 1 - Instalar Flutter
 
-## Getting Started
+- https://docs.flutter.dev/get-started/install
 
-This project is a starting point for a Flutter application.
+## 2 - Instalar Android Studio (infelizmente)
 
-A few resources to get you started if this is your first Flutter project:
+- https://developer.android.com/studio
+- Depois que instalar abrir > SDK Manager > SDK Tools > SDK Command Line Tools
+- Talvez precise ativar VT na BIOS para funcionar o emulador > google
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## 3 - Configurar IDE (VSCode)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- https://docs.flutter.dev/get-started/editor
+
+### Verificar instalamento
+
+- `flutter doctor`
+
+### Caso de problema no Chrome (linux)
+
+- `CHROME_EXECUTABLE=/opt/brave.com/brave/brave` (trocar pro caminho do seu chrome)
+- `export CHROME_EXECUTABLE`
+
+## 4 - Instalar emulador
+
+- `sdkmanager "system-images;android-27;google_apis_playstore;x86"`
+- `flutter emulators --create Nexus_6`
+
+### Verificar emulador
+
+- `flutter emulators --launch flutter_emulator`
+
+# Iniciar
+
+- `flutter run`
