@@ -1,6 +1,6 @@
 import 'package:desenvolvimentomobile/main.dart';
-import 'package:desenvolvimentomobile/view/inserir_cliente_page.dart';
-import 'package:desenvolvimentomobile/view/listar_clientes_page.dart';
+import 'package:desenvolvimentomobile/view/clientes/inserir_cliente_page.dart';
+import 'package:desenvolvimentomobile/view/clientes/listar_clientes_page.dart';
 
 class Routes {
 static const String home = MyHomePage.routeName;
