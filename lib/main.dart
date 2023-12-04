@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  //runApp(const MyApp());
-  runApp(Text("Oi mundo!!",
-      textDirection: TextDirection.ltr, style: TextStyle(fontSize: 30.0))
-  );
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
