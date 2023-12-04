@@ -26,12 +26,12 @@ class ClienteRest {
 
   Future<Cliente> inserir(Cliente cliente) async {
     final http.Response response =
-        await http.post(Uri.http(API.endpoint, 'clientes'),
+        await http.post(Uri.http(API.endpoint, 'clientes/'),
             headers: <String, String>{
               'Content-Type': 'application/json; charset=UTF-8',
             },
             body: cliente.toJson());
-    if (response.statusCode == 201) {
+    if (response.statusCode == 200) {
       return Cliente.fromJson(response.body);
     } else {
       throw Exception('Erro inserindo cliente.');

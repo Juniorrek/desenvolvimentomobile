@@ -11,10 +11,10 @@ class Cliente {
 
   Map<String, dynamic> toMap() {
     return {
-      'cliente_id': id,
-      'cliente_cpf': cpf,
-      'cliente_nome': nome,
-      'cliente_sobrenome': sobrenome
+      'id': id,
+      'cpf': cpf,
+      'nome': nome,
+      'sobrenome': sobrenome
     };
   }
 

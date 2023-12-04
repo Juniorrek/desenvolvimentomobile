@@ -1,4 +1,5 @@
 import 'package:desenvolvimentomobile/routes/routes.dart';
+import 'package:desenvolvimentomobile/view/inserir_cliente_page.dart';
 import 'package:desenvolvimentomobile/view/listar_clientes_page.dart';
 import 'package:desenvolvimentomobile/widgets/drawer.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +23,8 @@ class MyApp extends StatelessWidget {
       home: const MyHomePage(title: 'Home'),
       routes: {
         Routes.home: (context) => const MyHomePage(title: 'Home'),
-        Routes.clienteList: (context) => const ListarClientesPage()
+        Routes.clienteList: (context) => const ListarClientesPage(),
+        Routes.clienteInsert: (context) => InserirClientePage()
         /*Routes.cliente_edit: (context) => EditarClientePage(),
         Routes.cliente_insert: (context) => InserirClientePage(),*/
       },

@@ -1,6 +1,7 @@
 import 'package:desenvolvimentomobile/helper/error.dart';
 import 'package:desenvolvimentomobile/model/cliente.dart';
 import 'package:desenvolvimentomobile/repositories/cliente_repository.dart';
+import 'package:desenvolvimentomobile/routes/routes.dart';
 import 'package:desenvolvimentomobile/widgets/drawer.dart';
 import 'package:flutter/material.dart';
 
@@ -142,6 +143,11 @@ class _ListarClientesPageState extends State<ListarClientesPage> {
         body: ListView.builder(
           itemCount: _lista.length,
           itemBuilder: _buildItem,
-        ));
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () => Navigator.pushReplacementNamed(context, Routes.clienteInsert),
+          child: const Icon(Icons.add),
+        ),
+    );
   }
 }
