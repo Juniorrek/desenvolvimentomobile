@@ -2,6 +2,7 @@ import 'package:desenvolvimentomobile/helper/error.dart';
 import 'package:desenvolvimentomobile/model/produto.dart';
 import 'package:desenvolvimentomobile/repositories/produto_repository.dart';
 import 'package:desenvolvimentomobile/routes/routes.dart';
+import 'package:desenvolvimentomobile/view/produtos/editar_produtos_page.dart';
 import 'package:desenvolvimentomobile/widgets/drawer.dart';
 import 'package:flutter/material.dart';
 
@@ -75,14 +76,14 @@ class _ListarProdutosPageState extends State<ListarProdutosPage> {
   }
 
   void _editItem(BuildContext context, int index) {
-    /*Produto b = _lista[index];
+    Produto b = _lista[index];
     Navigator.pushNamed(
     context,
     EditarProdutoPage.routeName,
     arguments: <String, int>{
     "id": b.id!
     },
-    );*/
+    );
   }
 
   void _removeItem(BuildContext context, int index) {
