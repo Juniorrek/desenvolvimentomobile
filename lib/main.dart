@@ -53,6 +53,14 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
+      body: Center(child: Column(mainAxisAlignment: MainAxisAlignment.center,children: [
+        Text('Loja dos Alunos', style: TextStyle(fontSize: 48) ),
+        Divider(),
+        Text('David Reksidler Júnior', style: TextStyle(fontSize: 20)),
+        Text('Mateus Lodi', style: TextStyle(fontSize: 20)),
+        Text('Matheus Schelbauer', style: TextStyle(fontSize: 20)),
+        Text('Renata Soares', style: TextStyle(fontSize: 20))])
+      ),
       drawer: const AppDrawer(),
     );
   }

@@ -45,7 +45,18 @@ class _ListarClientesPageState extends State<ListarClientesPage> {
     return tempLista;
   }
 
-  void _removerCliente(int id) async {}
+  void _removerCliente(int id) async {
+    try {
+      ClienteRepository repository = ClienteRepository();
+      await repository.remover(id).then((value) {
+        _refreshList();
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Cliente $id removido com sucesso.')));
+      });
+    } catch (exception) {
+      showError(context, "Erro removendo cliente", exception.toString());
+    }
+  }
 
   void _showItem(BuildContext context, int index) {
     Cliente cliente = _lista[index];
@@ -94,15 +105,28 @@ class _ListarClientesPageState extends State<ListarClientesPage> {
   }
 
   void _removeItem(BuildContext context, int index) {
-    /*Cliente b = _lista[index]; showDialog( context: context,
-    builder: (BuildContext context) => AlertDialog( title: Text("Remover Cliente"),
-    content: Text("Gostaria realmente de remover ${b.nome}?"), actions: [ TextButton(
-    child: Text("Não"), onPressed: () { Navigator.of(context).pop(); }, ),
-    TextButton( child: Text("Sim"), onPressed: () {
-    _removerCliente(b.id!);
-    _refreshList(); Navigator.of(context).pop();
-    }, ), ],
-    ));*/
+    Cliente b = _lista[index];
+    showDialog(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+              title: Text("Remover Cliente"),
+              content: Text("Gostaria realmente de remover ${b.nome}?"),
+              actions: [
+                TextButton(
+                  child: Text("Não"),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+                TextButton(
+                  child: Text("Sim"),
+                  onPressed: () {
+                    _removerCliente(b.id!);
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            ));
   }
 
   ListTile _buildItem(BuildContext context, int index) {
