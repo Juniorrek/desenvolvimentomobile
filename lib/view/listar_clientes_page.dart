@@ -59,15 +59,15 @@ class _ListarClientesPageState extends State<ListarClientesPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(children: [
-                    const Icon(Icons.create),
+                    const Icon(Icons.fingerprint),
                     Text("CPF: ${cliente.cpf}")
                   ]),
                   Row(children: [
-                    const Icon(Icons.assistant_photo),
+                    const Icon(Icons.person),
                     Text("Nome: ${cliente.nome}")
                   ]),
                   Row(children: [
-                    const Icon(Icons.cake),
+                    const Icon(Icons.badge),
                     Text("Sobrenome: ${cliente.sobrenome}")
                   ]),
                 ],

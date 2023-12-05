@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 
 class InserirClientePage extends StatefulWidget {
   static const String routeName = '/insert';
+
+  const InserirClientePage({super.key});
   @override
   _InserirClienteState createState() => _InserirClienteState();
 }
@@ -33,7 +35,7 @@ class _InserirClienteState extends State<InserirClientePage> {
       _nomeController.clear();
       _sobrenomeControler.clear();
       ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text('Cliente salvo com sucesso.')));
+          .showSnackBar(const SnackBar(content: Text('Cliente salvo com sucesso.')));
     } catch (exception) {
       showError(context, "Erro inserindo cliente", exception.toString());
     }
@@ -45,7 +47,7 @@ class _InserirClienteState extends State<InserirClientePage> {
           key: _formKey,
           child: ListView(shrinkWrap: true, children: [
             Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
-              Text("CPF:"),
+              const Text("CPF:"),
               Expanded(
                   child: TextFormField(
                 controller: _cpfController,
@@ -58,7 +60,7 @@ class _InserirClienteState extends State<InserirClientePage> {
               ))
             ]),
             Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
-              Text("Nome:"),
+              const Text("Nome:"),
               Expanded(
                   child: TextFormField(
                 controller: _nomeController,
@@ -71,7 +73,7 @@ class _InserirClienteState extends State<InserirClientePage> {
               ))
             ]),
             Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
-              Text("Sobrenome:"),
+              const Text("Sobrenome:"),
               Expanded(
                   child: TextFormField(
                 controller: _sobrenomeControler,
@@ -91,7 +93,7 @@ class _InserirClienteState extends State<InserirClientePage> {
                       _salvar();
                     }
                   },
-                  child: Text('Salvar'),
+                  child: const Text('Salvar'),
                 )
               ],
             )
@@ -101,11 +103,11 @@ class _InserirClienteState extends State<InserirClientePage> {
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
+    return Scaffold(
       appBar: AppBar(
-        title: Text("Inserir Cliente"),
+        title: const Text("Inserir Cliente"),
       ),
-      drawer: AppDrawer(),
+      drawer: const AppDrawer(),
       body: _buildForm(context),
     );
   }

@@ -69,7 +69,7 @@ class AppDrawer extends StatelessWidget {
             icon: Icons.shopping_cart,
             text: 'Pedidos',
             onTap: () =>
-                Navigator.pushReplacementNamed(context, Routes.clienteList)),
+                Navigator.pushReplacementNamed(context, Routes.pedidoList)),
         ListTile(
           title: const Text('0.0.1'),
           onTap: () {},
