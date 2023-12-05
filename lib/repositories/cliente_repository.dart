@@ -7,6 +7,10 @@ class ClienteRepository {
     return await api.buscar(id);
   }
 
+  Future<Cliente?> buscarPorCpf(String cpf) async {
+    return await api.buscarPorCpf(cpf);
+  }
+
   Future<List<Cliente>> buscarTodos() async {
     return await api.buscarTodos();
   }

@@ -59,15 +59,15 @@ class _ListarClientesPageState extends State<ListarClientesPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(children: [
-                    const Icon(Icons.create),
+                    const Icon(Icons.fingerprint),
                     Text("CPF: ${cliente.cpf}")
                   ]),
                   Row(children: [
-                    const Icon(Icons.assistant_photo),
+                    const Icon(Icons.person),
                     Text("Nome: ${cliente.nome}")
                   ]),
                   Row(children: [
-                    const Icon(Icons.cake),
+                    const Icon(Icons.badge),
                     Text("Sobrenome: ${cliente.sobrenome}")
                   ]),
                 ],
@@ -145,7 +145,7 @@ class _ListarClientesPageState extends State<ListarClientesPage> {
           itemBuilder: _buildItem,
         ),
         floatingActionButton: FloatingActionButton(
-          onPressed: () => Navigator.pushReplacementNamed(context, Routes.clienteInsert),
+          onPressed: () => Navigator.pushNamed(context, Routes.clienteInsert).then((value) => _refreshList()),
           child: const Icon(Icons.add),
         ),
     );
