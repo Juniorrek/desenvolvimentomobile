@@ -3,6 +3,7 @@ import 'package:desenvolvimentomobile/model/cliente.dart';
 import 'package:desenvolvimentomobile/repositories/cliente_repository.dart';
 import 'package:desenvolvimentomobile/widgets/drawer.dart';
 import 'package:flutter/material.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 class InserirClientePage extends StatefulWidget {
   static const String routeName = '/insert';
@@ -27,15 +28,17 @@ class _InserirClienteState extends State<InserirClientePage> {
   }
 
   void _salvar() async {
-    Cliente cliente = Cliente.novo(_cpfController.text, _nomeController.text, _sobrenomeControler.text);
+    Cliente cliente = Cliente.novo(
+        _cpfController.text, _nomeController.text, _sobrenomeControler.text);
     try {
       ClienteRepository repository = ClienteRepository();
       await repository.inserir(cliente);
       _cpfController.clear();
       _nomeController.clear();
       _sobrenomeControler.clear();
-      ScaffoldMessenger.of(context)
-          .showSnackBar(const SnackBar(content: Text('Cliente salvo com sucesso.')));
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Cliente salvo com sucesso.')));
+      Navigator.pop(context);
     } catch (exception) {
       showError(context, "Erro inserindo cliente", exception.toString());
     }
@@ -47,45 +50,65 @@ class _InserirClienteState extends State<InserirClientePage> {
           key: _formKey,
           child: ListView(shrinkWrap: true, children: [
             Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
-              const Text("CPF:"),
               Expanded(
-                  child: TextFormField(
-                controller: _cpfController,
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return 'Campo não pode ser vazio';
-                  }
-                  return null;
-                },
-              ))
+                  child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 8, vertical: 8),
+                      child: TextFormField(
+                          decoration: const InputDecoration(
+                              border: OutlineInputBorder(), labelText: 'CPF'),
+                          controller: _cpfController,
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'Campo não pode ser vazio';
+                            }
+                            return null;
+                          },
+                          keyboardType: TextInputType.number,
+                          inputFormatters: [
+                            MaskTextInputFormatter(
+                                mask: '###.###.###-##',
+                                filter: {"#": RegExp(r'[0-9]')},
+                                type: MaskAutoCompletionType.lazy)
+                          ])))
             ]),
             Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
-              const Text("Nome:"),
               Expanded(
-                  child: TextFormField(
-                controller: _nomeController,
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return 'Campo não pode ser vazio';
-                  }
-                  return null;
-                },
-              ))
+                  child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 8, vertical: 8),
+                      child: TextFormField(
+                        decoration: const InputDecoration(
+                            border: OutlineInputBorder(), labelText: 'Nome'),
+                        controller: _nomeController,
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'Campo não pode ser vazio';
+                          }
+                          return null;
+                        },
+                      )))
             ]),
             Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
-              const Text("Sobrenome:"),
               Expanded(
-                  child: TextFormField(
-                controller: _sobrenomeControler,
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return 'Campo não pode ser vazio';
-                  }
-                  return null;
-                },
-              ))
+                  child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 8, vertical: 8),
+                      child: TextFormField(
+                        decoration: const InputDecoration(
+                            border: OutlineInputBorder(),
+                            labelText: 'Sobrenome'),
+                        controller: _sobrenomeControler,
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'Campo não pode ser vazio';
+                          }
+                          return null;
+                        },
+                      )))
             ]),
             Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 ElevatedButton(
                   onPressed: () {

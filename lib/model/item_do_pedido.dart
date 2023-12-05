@@ -12,7 +12,7 @@ class ItemDoPedido {
   Map<String, dynamic> toMap() {
     return {
       'quantidade': quantidade,
-      'produto': produto
+      'produto': produto.toMap()
     };
   }
 

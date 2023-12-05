@@ -6,6 +6,7 @@ import 'package:desenvolvimentomobile/routes/routes.dart';
 import 'package:desenvolvimentomobile/widgets/drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 class ListarPedidosPage extends StatefulWidget {
   static const String routeName = '/pedidos';
@@ -75,12 +76,10 @@ class _ListarPedidosPageState extends State<ListarPedidosPage> {
                       ]),
                       Row(children: [
                         const Icon(Icons.today),
-                        Text("Data: ${format.format(pedido.data)}")
+                        Text("Data: ${format.format(pedido.data!)}")
                       ]),
-                      const Row(children: [
-                        Icon(Icons.category),
-                        Text("Items:")
-                      ]),
+                      const Row(
+                          children: [Icon(Icons.category), Text("Items:")]),
                       Expanded(
                           child: ListView.builder(
                         itemCount: pedido.items.length,
@@ -106,7 +105,7 @@ class _ListarPedidosPageState extends State<ListarPedidosPage> {
     return ListTile(
       leading: const Icon(Icons.person),
       title: Text('${b.cliente.nome} ${b.cliente.sobrenome}'),
-      subtitle: Text(format.format(b.data)),
+      subtitle: Text(format.format(b.data!)),
       onTap: () {
         _showItem(context, index);
       },
@@ -120,48 +119,57 @@ class _ListarPedidosPageState extends State<ListarPedidosPage> {
         title: const Text("Listagem de Pedidos"),
       ),
       drawer: const AppDrawer(),
-      body: Column(children: [
-        Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
-              const Text("CPF:"),
-              Expanded(
-                  child: TextFormField(
-                controller: _cpfController,
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return 'Campo não pode ser vazio';
-                  }
-                  return null;
-                },
-              ))
-            ]),
-            Row(
-  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Column(children: [ElevatedButton(
-                  onPressed: () {
-                    /*if (_formKey.currentState!.validate()) {
+      body: Column(
+        children: [
+          Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
+            const Text("CPF:"),
+            Expanded(
+                child: TextFormField(
+                    controller: _cpfController,
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Campo não pode ser vazio';
+                      }
+                      return null;
+                    },
+                    keyboardType: TextInputType.number,
+                    inputFormatters: [
+                  MaskTextInputFormatter(
+                      mask: '###.###.###-##',
+                      filter: {"#": RegExp(r'[0-9]')},
+                      type: MaskAutoCompletionType.lazy)
+                ]))
+          ]),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Column(
+                children: [
+                  ElevatedButton(
+                    onPressed: () {
+                      /*if (_formKey.currentState!.validate()) {
                       _salvar();
                     }*/
-                  },
-                  child: const Icon(Icons.filter_alt),
-                )],)
-              ],
+                    },
+                    child: const Icon(Icons.filter_alt),
+                  )
+                ],
+              )
+            ],
+          ),
+          const Divider(),
+          Expanded(
+              child: Container(
+            child: ListView.builder(
+              itemCount: _lista.length,
+              itemBuilder: _buildItem,
             ),
-        const Divider(),
-        Expanded(
-            child: Container(
-                child: ListView.builder(
-        itemCount: _lista.length,
-        itemBuilder: _buildItem,
+          ))
+        ],
       ),
-            )
-        )
-      ],)
-      
-      ,
       floatingActionButton: FloatingActionButton(
         onPressed: () =>
-            Navigator.pushReplacementNamed(context, Routes.clienteInsert),
+            Navigator.pushNamed(context, Routes.pedidoInsert).then((value) => _refreshList()),
         child: const Icon(Icons.add),
       ),
     );

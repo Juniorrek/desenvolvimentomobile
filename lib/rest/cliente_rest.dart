@@ -14,6 +14,17 @@ class ClienteRest {
     }
   }
 
+  Future<Cliente?> buscarPorCpf(String cpf) async {
+    final http.Response response =
+        await http.get(Uri.http(API.endpoint, '/clientes/cpf/$cpf'));
+    if (response.statusCode == 200) {
+      return response.body == "" ? null : Cliente.fromJson(response.body);
+    } else {
+      throw Exception(
+          'Erro buscando cliente: $cpf [code: ${response.statusCode}]');
+    }
+  }
+
   Future<List<Cliente>> buscarTodos() async {
     final http.Response response =
         await http.get(Uri.http(API.endpoint, "clientes/"));

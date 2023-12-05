@@ -145,7 +145,7 @@ class _ListarClientesPageState extends State<ListarClientesPage> {
           itemBuilder: _buildItem,
         ),
         floatingActionButton: FloatingActionButton(
-          onPressed: () => Navigator.pushReplacementNamed(context, Routes.clienteInsert),
+          onPressed: () => Navigator.pushNamed(context, Routes.clienteInsert).then((value) => _refreshList()),
           child: const Icon(Icons.add),
         ),
     );

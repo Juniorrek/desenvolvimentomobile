@@ -5,21 +5,28 @@ import 'package:desenvolvimentomobile/model/item_do_pedido.dart';
 
 class Pedido {
   int? id;
-  DateTime data;
+  DateTime? data;
   Cliente cliente;
   List<ItemDoPedido> items;
 
   Pedido(this.id, this.data, this.cliente, this.items);
-  Pedido.novo(this.data, this.cliente, this.items);
+  Pedido.novo(this.cliente, this.items);
 
   static DateTime dateTimeFromTimestamp(int date) {
     return DateTime.fromMillisecondsSinceEpoch(date);
   }
 
   Map<String, dynamic> toMap() {
+    Map<String, dynamic>? c = this.cliente != null ? this.cliente.toMap() : null;
+
+    List<Map<String, dynamic>>? i =
+        this.items != null ? this.items.map((i) => i.toMap()).toList() : null;
+
     return {
       'id': id,
-      'data': data
+      'data': data,
+      'cliente': c,
+      'items': i
     };
   }
 
