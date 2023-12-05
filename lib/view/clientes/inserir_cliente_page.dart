@@ -5,7 +5,7 @@ import 'package:desenvolvimentomobile/widgets/drawer.dart';
 import 'package:flutter/material.dart';
 
 class InserirClientePage extends StatefulWidget {
-  static const String routeName = '/insert';
+  static const String routeName = '/clientes/insert';
   @override
   _InserirClienteState createState() => _InserirClienteState();
 }

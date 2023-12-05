@@ -6,7 +6,7 @@ import 'package:desenvolvimentomobile/widgets/drawer.dart';
 import 'package:flutter/material.dart';
 
 class ListarClientesPage extends StatefulWidget {
-  static const String routeName = '/list';
+  static const String routeName = '/clientes/list';
 
   const ListarClientesPage({super.key});
   @override
