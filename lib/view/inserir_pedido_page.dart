@@ -125,6 +125,9 @@ class _InserirPedidoState extends State<InserirPedidoPage> {
                             if (value!.isEmpty) {
                               return 'Campo não pode ser vazio';
                             }
+                            if (value.length < 14) {
+                              return 'CPF incorreto';
+                            }
                             return null;
                           },
                           keyboardType: TextInputType.number,

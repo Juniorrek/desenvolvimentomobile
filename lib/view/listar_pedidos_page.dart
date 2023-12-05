@@ -17,6 +17,7 @@ class ListarPedidosPage extends StatefulWidget {
 }
 
 class _ListarPedidosPageState extends State<ListarPedidosPage> {
+  final _formKey = GlobalKey<FormState>();
   List<Pedido> _lista = <Pedido>[];
   List<ItemDoPedido> _listaItems = <ItemDoPedido>[];
   final _cpfController = TextEditingController();
@@ -31,11 +32,36 @@ class _ListarPedidosPageState extends State<ListarPedidosPage> {
     super.dispose();
   }
 
+  void _filtrarPedidos() async {
+    String cpf = _cpfController.text.replaceAll(RegExp('[^0-9_]+'), '');
+
+    List<Pedido> tempList;
+    if (cpf != '') {
+      tempList = await _obterFiltrado(cpf);
+    } else {
+      tempList = await _obterTodos();
+    }
+    setState(() {
+      _lista = tempList;
+    });
+  }
+
   void _refreshList() async {
     List<Pedido> tempList = await _obterTodos();
     setState(() {
       _lista = tempList;
     });
+  }
+
+  Future<List<Pedido>> _obterFiltrado(String cpf) async {
+    List<Pedido> tempLista = <Pedido>[];
+    try {
+      PedidoRepository repository = PedidoRepository();
+      tempLista = await repository.listarPorCpf(cpf);
+    } catch (exception) {
+      showError(context, "Erro obtendo lista de pedidos", exception.toString());
+    }
+    return tempLista;
   }
 
   Future<List<Pedido>> _obterTodos() async {
@@ -121,42 +147,51 @@ class _ListarPedidosPageState extends State<ListarPedidosPage> {
       drawer: const AppDrawer(),
       body: Column(
         children: [
-          Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
-            const Text("CPF:"),
-            Expanded(
-                child: TextFormField(
-                    controller: _cpfController,
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'Campo não pode ser vazio';
-                      }
-                      return null;
-                    },
-                    keyboardType: TextInputType.number,
-                    inputFormatters: [
-                  MaskTextInputFormatter(
-                      mask: '###.###.###-##',
-                      filter: {"#": RegExp(r'[0-9]')},
-                      type: MaskAutoCompletionType.lazy)
-                ]))
-          ]),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Column(
-                children: [
-                  ElevatedButton(
-                    onPressed: () {
-                      /*if (_formKey.currentState!.validate()) {
-                      _salvar();
-                    }*/
-                    },
-                    child: const Icon(Icons.filter_alt),
-                  )
-                ],
-              )
-            ],
-          ),
+          Form(
+              key: _formKey,
+              child: ListView(shrinkWrap: true, children: [
+                Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
+                  Expanded(
+                      child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 8, vertical: 8),
+                          child: TextFormField(
+                              decoration: const InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  labelText: 'Filtrar por CPF'),
+                              controller: _cpfController,
+                              validator: (value) {
+                                if (value?.length != 0 && value!.length < 14) {
+                                  return 'CPF incorreto';
+                                }
+                                return null;
+                              },
+                              keyboardType: TextInputType.number,
+                              inputFormatters: [
+                                MaskTextInputFormatter(
+                                    mask: '###.###.###-##',
+                                    filter: {"#": RegExp(r'[0-9]')},
+                                    type: MaskAutoCompletionType.lazy)
+                              ])))
+                ]),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Column(
+                      children: [
+                        ElevatedButton(
+                          onPressed: () {
+                            if (_formKey.currentState!.validate()) {
+                              _filtrarPedidos();
+                            }
+                          },
+                          child: const Icon(Icons.filter_alt),
+                        )
+                      ],
+                    )
+                  ],
+                )
+              ])),
           const Divider(),
           Expanded(
               child: Container(
@@ -168,8 +203,8 @@ class _ListarPedidosPageState extends State<ListarPedidosPage> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () =>
-            Navigator.pushNamed(context, Routes.pedidoInsert).then((value) => _refreshList()),
+        onPressed: () => Navigator.pushNamed(context, Routes.pedidoInsert)
+            .then((value) => _refreshList()),
         child: const Icon(Icons.add),
       ),
     );

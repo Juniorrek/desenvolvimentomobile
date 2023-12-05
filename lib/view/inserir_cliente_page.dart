@@ -29,7 +29,7 @@ class _InserirClienteState extends State<InserirClientePage> {
 
   void _salvar() async {
     Cliente cliente = Cliente.novo(
-        _cpfController.text, _nomeController.text, _sobrenomeControler.text);
+        _cpfController.text.replaceAll(RegExp('[^0-9_]+'), ''), _nomeController.text, _sobrenomeControler.text);
     try {
       ClienteRepository repository = ClienteRepository();
       await repository.inserir(cliente);
@@ -61,6 +61,9 @@ class _InserirClienteState extends State<InserirClientePage> {
                           validator: (value) {
                             if (value!.isEmpty) {
                               return 'Campo não pode ser vazio';
+                            }
+                            if (value.length < 14) {
+                              return 'CPF incorreto';
                             }
                             return null;
                           },
