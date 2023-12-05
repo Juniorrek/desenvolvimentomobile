@@ -73,7 +73,7 @@ class _InserirPedidoState extends State<InserirPedidoPage> {
   }
 
   void _salvar() async {
-    if (itemsCarrinho.length > 0) {
+    if (itemsCarrinho.isNotEmpty) {
       if (itemsCarrinho.any((e) => e.quantidade <= 0)) {
       ScaffoldMessenger.of(context)
           .showSnackBar(const SnackBar(content: Text('Quantidade deve ser maior que 0')));
@@ -195,7 +195,7 @@ class _InserirPedidoState extends State<InserirPedidoPage> {
                               onChanged: (value) => e.quantidade = value.toInt()))
                         ]))
                     .toList()),
-                    Divider(),
+                    const Divider(),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

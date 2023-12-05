@@ -1,12 +1,15 @@
 import 'package:desenvolvimentomobile/helper/error.dart';
 import 'package:desenvolvimentomobile/model/cliente.dart';
+import 'package:desenvolvimentomobile/model/pedido.dart';
 import 'package:desenvolvimentomobile/repositories/cliente_repository.dart';
+import 'package:desenvolvimentomobile/repositories/pedido_repository.dart';
 import 'package:desenvolvimentomobile/routes/routes.dart';
+import 'package:desenvolvimentomobile/view/editar_cliente_page.dart';
 import 'package:desenvolvimentomobile/widgets/drawer.dart';
 import 'package:flutter/material.dart';
 
 class ListarClientesPage extends StatefulWidget {
-  static const String routeName = '/list';
+  static const String routeName = '/clientes';
 
   const ListarClientesPage({super.key});
   @override
@@ -45,7 +48,27 @@ class _ListarClientesPageState extends State<ListarClientesPage> {
     return tempLista;
   }
 
-  void _removerCliente(int id) async {}
+  void _removerCliente(Cliente cliente) async {
+    try {
+      PedidoRepository pedidoRepository = PedidoRepository();
+      List<Pedido> pedidos = await pedidoRepository.listarPorCpf(cliente.cpf);
+
+      if (pedidos.isNotEmpty) {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            content: Text(
+                'Não é possível excluir esse cliente pois ele tem pedidos.')));
+      } else {
+        ClienteRepository repository = ClienteRepository();
+        await repository.remover(cliente.id!).then((value) {
+          _refreshList();
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              content: Text('Cliente ${cliente.id} removido com sucesso.')));
+        });
+      }
+    } catch (exception) {
+      showError(context, "Erro removendo cliente", exception.toString());
+    }
+  }
 
   void _showItem(BuildContext context, int index) {
     Cliente cliente = _lista[index];
@@ -83,26 +106,37 @@ class _ListarClientesPageState extends State<ListarClientesPage> {
   }
 
   void _editItem(BuildContext context, int index) {
-    /*Cliente b = _lista[index];
+    Cliente b = _lista[index];
     Navigator.pushNamed(
-    context,
-    EditarClientePage.routeName,
-    arguments: <String, int>{
-    "id": b.id!
-    },
-    );*/
+      context,
+      EditarClientePage.routeName,
+      arguments: <String, int>{"id": b.id!},
+    ).then((value) => _refreshList());
   }
 
   void _removeItem(BuildContext context, int index) {
-    /*Cliente b = _lista[index]; showDialog( context: context,
-    builder: (BuildContext context) => AlertDialog( title: Text("Remover Cliente"),
-    content: Text("Gostaria realmente de remover ${b.nome}?"), actions: [ TextButton(
-    child: Text("Não"), onPressed: () { Navigator.of(context).pop(); }, ),
-    TextButton( child: Text("Sim"), onPressed: () {
-    _removerCliente(b.id!);
-    _refreshList(); Navigator.of(context).pop();
-    }, ), ],
-    ));*/
+    Cliente b = _lista[index];
+    showDialog(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+              title: const Text("Remover Cliente"),
+              content: Text("Gostaria realmente de remover ${b.nome}?"),
+              actions: [
+                TextButton(
+                  child: const Text("Não"),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+                TextButton(
+                  child: const Text("Sim"),
+                  onPressed: () {
+                    _removerCliente(b);
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            ));
   }
 
   ListTile _buildItem(BuildContext context, int index) {
@@ -136,18 +170,19 @@ class _ListarClientesPageState extends State<ListarClientesPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text("Listagem de Clientes"),
-        ),
-        drawer: const AppDrawer(),
-        body: ListView.builder(
-          itemCount: _lista.length,
-          itemBuilder: _buildItem,
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () => Navigator.pushNamed(context, Routes.clienteInsert).then((value) => _refreshList()),
-          child: const Icon(Icons.add),
-        ),
+      appBar: AppBar(
+        title: const Text("Listagem de Clientes"),
+      ),
+      drawer: const AppDrawer(),
+      body: ListView.builder(
+        itemCount: _lista.length,
+        itemBuilder: _buildItem,
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => Navigator.pushNamed(context, Routes.clienteInsert)
+            .then((value) => _refreshList()),
+        child: const Icon(Icons.add),
+      ),
     );
   }
 }
