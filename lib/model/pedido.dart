@@ -17,10 +17,10 @@ class Pedido {
   }
 
   Map<String, dynamic> toMap() {
-    Map<String, dynamic>? c = this.cliente != null ? this.cliente.toMap() : null;
+    Map<String, dynamic>? c = cliente != null ? cliente.toMap() : null;
 
     List<Map<String, dynamic>>? i =
-        this.items != null ? this.items.map((i) => i.toMap()).toList() : null;
+        items != null ? items.map((i) => i.toMap()).toList() : null;
 
     return {
       'id': id,

@@ -1,4 +1,5 @@
 import 'package:desenvolvimentomobile/routes/routes.dart';
+import 'package:desenvolvimentomobile/view/editar_cliente_page.dart';
 import 'package:desenvolvimentomobile/view/inserir_cliente_page.dart';
 import 'package:desenvolvimentomobile/view/inserir_pedido_page.dart';
 import 'package:desenvolvimentomobile/view/listar_clientes_page.dart';
@@ -27,10 +28,9 @@ class MyApp extends StatelessWidget {
         Routes.home: (context) => const MyHomePage(title: 'Home'),
         Routes.clienteList: (context) => const ListarClientesPage(),
         Routes.clienteInsert: (context) => const InserirClientePage(),
+        Routes.clienteEdit: (context) => const EditarClientePage(),
         Routes.pedidoList: (context) => const ListarPedidosPage(),
         Routes.pedidoInsert: (context) => const InserirPedidoPage()
-        /*Routes.cliente_edit: (context) => EditarClientePage(),
-        Routes.cliente_insert: (context) => InserirClientePage(),*/
       },
     );
   }
@@ -53,7 +53,7 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Center(child: Column(mainAxisAlignment: MainAxisAlignment.center,children: [
+      body: const Center(child: Column(mainAxisAlignment: MainAxisAlignment.center,children: [
         Text('Loja dos Alunos', style: TextStyle(fontSize: 48) ),
         Divider(),
         Text('David Reksidler Júnior', style: TextStyle(fontSize: 20)),

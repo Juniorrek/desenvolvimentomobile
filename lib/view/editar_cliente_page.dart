@@ -5,44 +5,55 @@ import 'package:desenvolvimentomobile/widgets/drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
-class InserirClientePage extends StatefulWidget {
-  static const String routeName = '/clientes/inserir';
+class EditarClientePage extends StatefulWidget {
+  static const String routeName = '/clientes/editar';
 
-  const InserirClientePage({super.key});
+  const EditarClientePage({super.key});
   @override
-  _InserirClienteState createState() => _InserirClienteState();
+  _EditarClientePageState createState() => _EditarClientePageState();
 }
 
-class _InserirClienteState extends State<InserirClientePage> {
+class _EditarClientePageState extends State<EditarClientePage> {
   final _formKey = GlobalKey<FormState>();
   final _cpfController = TextEditingController();
   final _nomeController = TextEditingController();
-  final _sobrenomeControler = TextEditingController();
-
+  final _sobrenomeController = TextEditingController();
+  int _id = 0;
+  Cliente? _cliente;
   @override
   void dispose() {
     _cpfController.dispose();
     _nomeController.dispose();
-    _sobrenomeControler.dispose();
+    _sobrenomeController.dispose();
     super.dispose();
   }
 
+  void _obterCliente() async {
+    try {
+      var maskFormatter = new MaskTextInputFormatter(mask: '###.###.###-##', filter: { "#": RegExp(r'[0-9]') });
+      ClienteRepository repository = ClienteRepository();
+      this._cliente = await repository.buscar(this._id);
+      _cpfController.text = maskFormatter.maskText(this._cliente!.cpf);
+      _nomeController.text = this._cliente!.nome;
+      _sobrenomeController.text = this._cliente!.sobrenome;
+    } catch (exception) {
+      showError(context, "Erro recuperando cliente", exception.toString());
+      Navigator.pop(context);
+    }
+  }
+
   void _salvar() async {
-    Cliente cliente = Cliente.novo(
-        _cpfController.text.replaceAll(RegExp('[^0-9_]+'), ''),
-        _nomeController.text,
-        _sobrenomeControler.text);
+    this._cliente!.cpf = _cpfController.text.replaceAll(RegExp('[^0-9_]+'), '');
+    this._cliente!.nome = _nomeController.text;
+    this._cliente!.sobrenome = _sobrenomeController.text;
     try {
       ClienteRepository repository = ClienteRepository();
-      await repository.inserir(cliente);
-      _cpfController.clear();
-      _nomeController.clear();
-      _sobrenomeControler.clear();
+      await repository.alterar(this._cliente!);
       ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Cliente salvo com sucesso.')));
+          SnackBar(content: Text('Cliente editado com sucesso.')));
       Navigator.pop(context);
     } catch (exception) {
-      showError(context, "Erro inserindo cliente", exception.toString());
+      showError(context, "Erro editando cliente", exception.toString());
     }
   }
 
@@ -103,7 +114,7 @@ class _InserirClienteState extends State<InserirClientePage> {
                         decoration: const InputDecoration(
                             border: OutlineInputBorder(),
                             labelText: 'Sobrenome'),
-                        controller: _sobrenomeControler,
+                        controller: _sobrenomeController,
                         validator: (value) {
                           if (value!.isEmpty) {
                             return 'Campo não pode ser vazio';
@@ -112,14 +123,16 @@ class _InserirClienteState extends State<InserirClientePage> {
                         },
                       )))
             ]),
-            Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+            Row(mainAxisAlignment: MainAxisAlignment.center, 
+              children: [
               ElevatedButton(
-                  onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      _salvar();
-                    }
-                  },
-                  child: Text('Salvar')),
+                onPressed: () {
+                  if (_formKey.currentState!.validate()) {
+                    _salvar();
+                  }
+                },
+                child: Text('Salvar')
+              ),
               ElevatedButton(
                 onPressed: () {
                   Navigator.pop(context);
@@ -127,15 +140,18 @@ class _InserirClienteState extends State<InserirClientePage> {
                 child: Text('Cancelar'),
               ),
             ])
-          ]))
+          ])) // Form
     ]);
   }
 
   @override
   Widget build(BuildContext context) {
+    final Map m = ModalRoute.of(context)!.settings.arguments as Map;
+    _id = m["id"];
+    _obterCliente();
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Inserir Cliente"),
+        title: const Text("Editar Cliente"),
       ),
       drawer: const AppDrawer(),
       body: _buildForm(context),
