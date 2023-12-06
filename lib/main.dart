@@ -1,6 +1,7 @@
 import 'package:desenvolvimentomobile/routes/routes.dart';
 import 'package:desenvolvimentomobile/view/clientes/inserir_cliente_page.dart';
 import 'package:desenvolvimentomobile/view/clientes/listar_clientes_page.dart';
+import 'package:desenvolvimentomobile/view/produtos/editar_produtos_page.dart';
 import 'package:desenvolvimentomobile/view/produtos/inserir_produtos_page.dart';
 import 'package:desenvolvimentomobile/view/produtos/listar_produtos_page.dart';
 import 'package:desenvolvimentomobile/widgets/drawer.dart';
@@ -29,6 +30,7 @@ class MyApp extends StatelessWidget {
         Routes.clienteInsert: (context) => InserirClientePage(),        
         Routes.produtoList: (context) => const ListarProdutosPage(),
         Routes.produtoInsert: (context) => InserirProdutoPage(),
+        Routes.produtoEdit: (context) => EditarProdutoPage(),
         /*Routes.cliente_edit: (context) => EditarClientePage(),
         Routes.cliente_insert: (context) => InserirClientePage(),*/
 
