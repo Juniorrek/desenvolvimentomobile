@@ -99,13 +99,13 @@ class _ListarProdutosPageState extends State<ListarProdutosPage> {
     showDialog( context: context,
       builder: (BuildContext context) => 
           AlertDialog( 
-            title: Text("Remover Produto"),
+            title: const Text("Remover Produto"),
             content: Text("Gostaria realmente de remover ${b.descricao}?"),
             actions: [  TextButton(
-                              child: Text("Não"), 
+                              child: const Text("Não"), 
                               onPressed: () { Navigator.of(context).pop(); }, 
                             ),
-                        TextButton( child: Text("Sim"), onPressed: () {
+                        TextButton( child: const Text("Sim"), onPressed: () {
                             _removerProduto(b);
                             Navigator.of(context).pop();
                           }, 

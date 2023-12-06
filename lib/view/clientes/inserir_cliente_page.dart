@@ -119,12 +119,12 @@ class _InserirClienteState extends State<InserirClientePage> {
                       _salvar();
                     }
                   },
-                  child: Text('Salvar')),
+                  child: const Text('Salvar')),
               ElevatedButton(
                 onPressed: () {
                   Navigator.pop(context);
                 },
-                child: Text('Cancelar'),
+                child: const Text('Cancelar'),
               ),
             ])
           ]))

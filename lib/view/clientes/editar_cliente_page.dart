@@ -30,12 +30,12 @@ class _EditarClientePageState extends State<EditarClientePage> {
 
   void _obterCliente() async {
     try {
-      var maskFormatter = new MaskTextInputFormatter(mask: '###.###.###-##', filter: { "#": RegExp(r'[0-9]') });
+      var maskFormatter = MaskTextInputFormatter(mask: '###.###.###-##', filter: { "#": RegExp(r'[0-9]') });
       ClienteRepository repository = ClienteRepository();
-      this._cliente = await repository.buscar(this._id);
-      _cpfController.text = maskFormatter.maskText(this._cliente!.cpf);
-      _nomeController.text = this._cliente!.nome;
-      _sobrenomeController.text = this._cliente!.sobrenome;
+      _cliente = await repository.buscar(_id);
+      _cpfController.text = maskFormatter.maskText(_cliente!.cpf);
+      _nomeController.text = _cliente!.nome;
+      _sobrenomeController.text = _cliente!.sobrenome;
     } catch (exception) {
       showError(context, "Erro recuperando cliente", exception.toString());
       Navigator.pop(context);
@@ -43,14 +43,14 @@ class _EditarClientePageState extends State<EditarClientePage> {
   }
 
   void _salvar() async {
-    this._cliente!.cpf = _cpfController.text.replaceAll(RegExp('[^0-9_]+'), '');
-    this._cliente!.nome = _nomeController.text;
-    this._cliente!.sobrenome = _sobrenomeController.text;
+    _cliente!.cpf = _cpfController.text.replaceAll(RegExp('[^0-9_]+'), '');
+    _cliente!.nome = _nomeController.text;
+    _cliente!.sobrenome = _sobrenomeController.text;
     try {
       ClienteRepository repository = ClienteRepository();
-      await repository.alterar(this._cliente!);
+      await repository.alterar(_cliente!);
       ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Cliente editado com sucesso.')));
+          const SnackBar(content: Text('Cliente editado com sucesso.')));
       Navigator.pop(context);
     } catch (exception) {
       showError(context, "Erro editando cliente", exception.toString());
@@ -131,13 +131,13 @@ class _EditarClientePageState extends State<EditarClientePage> {
                     _salvar();
                   }
                 },
-                child: Text('Salvar')
+                child: const Text('Salvar')
               ),
               ElevatedButton(
                 onPressed: () {
                   Navigator.pop(context);
                 },
-                child: Text('Cancelar'),
+                child: const Text('Cancelar'),
               ),
             ])
           ])) // Form

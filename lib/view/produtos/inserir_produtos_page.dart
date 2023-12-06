@@ -30,7 +30,7 @@ class _InserirProdutoPageState extends State<InserirProdutoPage> {
       _descricaoController.clear();
 
       ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text('Produto salvo com sucesso.')));
+          .showSnackBar(const SnackBar(content: Text('Produto salvo com sucesso.')));
     } catch (exception) {
       showError(context, "Erro inserindo produto", exception.toString());
     }

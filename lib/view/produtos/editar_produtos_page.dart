@@ -26,8 +26,8 @@ class _EditarProdutoPageState extends State<EditarProdutoPage> {
   void _obterProduto() async {
     try {
       ProdutoRepository repository = ProdutoRepository();
-      this._produto = await repository.buscar(this._id);
-      _descricao.text = this._produto!.descricao;
+      _produto = await repository.buscar(_id);
+      _descricao.text = _produto!.descricao;
     } catch (exception) {
       showError(context, "Erro recuperando produto", exception.toString());
       Navigator.pop(context);
@@ -35,12 +35,12 @@ class _EditarProdutoPageState extends State<EditarProdutoPage> {
   }
 
   void _salvar() async {
-    this._produto!.descricao = _descricao.text;
+    _produto!.descricao = _descricao.text;
     try {
       ProdutoRepository repository = ProdutoRepository();
-      await repository.alterar(this._produto!);
+      await repository.alterar(_produto!);
       ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Produto editado com sucesso.')));
+          const SnackBar(content: Text('Produto editado com sucesso.')));
       Navigator.pop(context);
     } catch (exception) {
       showError(context, "Erro editando produto", exception.toString());
