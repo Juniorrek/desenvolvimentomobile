@@ -56,7 +56,7 @@ class _ListarProdutosPageState extends State<ListarProdutosPage> {
       if (pedidos.isNotEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
             content: Text(
-                'Não é possível excluir esse cliente pois ele tem pedidos.')));
+                'Não é possível excluir pois esse produto esta vinculado a pedidos.')));
       } else {
         ProdutoRepository repository = ProdutoRepository();
         await repository.remover(produto.id!).then((value) {
