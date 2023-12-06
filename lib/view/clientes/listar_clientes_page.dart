@@ -170,6 +170,7 @@ class _ListarClientesPageState extends State<ListarClientesPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset : false,
       appBar: AppBar(
         title: const Text("Listagem de Clientes"),
       ),

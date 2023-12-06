@@ -141,6 +141,7 @@ class _ListarPedidosPageState extends State<ListarPedidosPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset : false,
       appBar: AppBar(
         title: const Text("Listagem de Pedidos"),
       ),

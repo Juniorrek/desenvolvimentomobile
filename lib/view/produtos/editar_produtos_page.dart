@@ -96,6 +96,7 @@ class _EditarProdutoPageState extends State<EditarProdutoPage> {
     _id = m["id"];
     _obterProduto();
     return Scaffold(
+      resizeToAvoidBottomInset : false,
       appBar: AppBar(
         title: const Text("Editar Produto"),
       ),

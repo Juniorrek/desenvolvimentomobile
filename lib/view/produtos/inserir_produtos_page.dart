@@ -31,6 +31,7 @@ class _InserirProdutoPageState extends State<InserirProdutoPage> {
 
       ScaffoldMessenger.of(context)
           .showSnackBar(const SnackBar(content: Text('Produto salvo com sucesso.')));
+      Navigator.pop(context);
     } catch (exception) {
       showError(context, "Erro inserindo produto", exception.toString());
     }
@@ -83,6 +84,7 @@ class _InserirProdutoPageState extends State<InserirProdutoPage> {
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
+      resizeToAvoidBottomInset : false,
       appBar: AppBar(
         title: const Text("Inserir Produto"),
       ),

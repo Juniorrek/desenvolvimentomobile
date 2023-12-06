@@ -134,6 +134,7 @@ class _InserirClienteState extends State<InserirClientePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset : false,
       appBar: AppBar(
         title: const Text("Inserir Cliente"),
       ),

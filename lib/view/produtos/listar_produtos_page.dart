@@ -160,6 +160,7 @@ class _ListarProdutosPageState extends State<ListarProdutosPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset : false,
       appBar: AppBar(
         title: const Text("Listagem de Produtos"),
       ),
@@ -170,7 +171,7 @@ class _ListarProdutosPageState extends State<ListarProdutosPage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () =>
-            Navigator.pushReplacementNamed(context, Routes.produtoInsert),
+            Navigator.pushNamed(context, Routes.produtoInsert).then((value) => _refreshList()),
         child: const Icon(Icons.add),
       ),
     );

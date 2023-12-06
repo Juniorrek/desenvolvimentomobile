@@ -150,6 +150,7 @@ class _EditarClientePageState extends State<EditarClientePage> {
     _id = m["id"];
     _obterCliente();
     return Scaffold(
+      resizeToAvoidBottomInset : false,
       appBar: AppBar(
         title: const Text("Editar Cliente"),
       ),
