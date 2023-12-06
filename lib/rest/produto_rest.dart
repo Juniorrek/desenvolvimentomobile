@@ -26,25 +26,27 @@ class ProdutoRest {
 
   Future<Produto> inserir(Produto produto) async {
     final http.Response response =
-        await http.post(Uri.http(API.endpoint, 'produtos/'),
-            headers: <String, String>{
-              'Content-Type': 'application/json; charset=UTF-8',
-            },
-            body: produto.toJson());
+      await http.post(
+        Uri.http(API.endpoint, 'produtos/'),
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+          },
+          body: produto.toJson());
     if (response.statusCode == 200) {
-      return Produto.fromJson(response.body);
+      return produto ;//Produto.fromJson(response.body);
     } else {
       throw Exception('Erro inserindo cliente.');
     }
   }
 
   Future<Produto> alterar(Produto produto) async {
-    final http.Response response = await http.put(
-      Uri.http(API.endpoint, 'produtos/${produto.id}'),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: produto.toJson(),
+    final http.Response response = 
+      await http.put(
+        Uri.http(API.endpoint, 'produtos/${produto.id}'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: produto.toJson(),
     );
     if (response.statusCode == 200) {
       return produto;
