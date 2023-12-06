@@ -75,12 +75,13 @@ class _InserirPedidoState extends State<InserirPedidoPage> {
   void _salvar() async {
     if (itemsCarrinho.isNotEmpty) {
       if (itemsCarrinho.any((e) => e.quantidade <= 0)) {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(const SnackBar(content: Text('Quantidade deve ser maior que 0')));
+        ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Quantidade deve ser maior que 0')));
       } else {
         try {
           ClienteRepository clienteRepository = ClienteRepository();
-          Cliente? cliente = await clienteRepository.buscarPorCpf(_cpfController.text.replaceAll(RegExp('[^0-9_]+'), ''));
+          Cliente? cliente = await clienteRepository.buscarPorCpf(
+              _cpfController.text.replaceAll(RegExp('[^0-9_]+'), ''));
 
           if (cliente != null) {
             PedidoRepository pedidoRepository = PedidoRepository();
@@ -92,17 +93,16 @@ class _InserirPedidoState extends State<InserirPedidoPage> {
                 const SnackBar(content: Text('Pedido salvo com sucesso.')));
             Navigator.pop(context);
           } else {
-            ScaffoldMessenger.of(context)
-                .showSnackBar(const SnackBar(content: Text('Cliente não encontrado')));
+            ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text('Cliente não encontrado')));
           }
         } catch (exception) {
           showError(context, "Erro inserindo pedido", exception.toString());
         }
       }
-
     } else {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(const SnackBar(content: Text('Adicione pelo menos 1 produto')));
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Adicione pelo menos 1 produto')));
     }
   }
 
@@ -191,11 +191,14 @@ class _InserirPedidoState extends State<InserirPedidoPage> {
                     .map<DataRow>((e) => DataRow(cells: [
                           DataCell(Text(e.produto.descricao)),
                           DataCell(SpinBox(
-                              min: 1, max: 100, value: e.quantidade.toDouble(),
-                              onChanged: (value) => e.quantidade = value.toInt()))
+                              min: 1,
+                              max: 100,
+                              value: e.quantidade.toDouble(),
+                              onChanged: (value) =>
+                                  e.quantidade = value.toInt()))
                         ]))
                     .toList()),
-                    const Divider(),
+            const Divider(),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -206,6 +209,12 @@ class _InserirPedidoState extends State<InserirPedidoPage> {
                     }
                   },
                   child: const Text('Fazer Pedido'),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: const Text('Cancelar'),
                 )
               ],
             )
@@ -216,11 +225,11 @@ class _InserirPedidoState extends State<InserirPedidoPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset : false,
+        resizeToAvoidBottomInset: false,
         appBar: AppBar(
           title: const Text("Inserir Pedido"),
         ),
-        drawer: const AppDrawer(),
+        //drawer: const AppDrawer(),
         body: _buildForm(context));
   }
 }

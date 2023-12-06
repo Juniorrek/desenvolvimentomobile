@@ -100,7 +100,7 @@ class _EditarProdutoPageState extends State<EditarProdutoPage> {
       appBar: AppBar(
         title: const Text("Editar Produto"),
       ),
-      drawer: const AppDrawer(),
+      //drawer: const AppDrawer(),
       body: _buildForm(context),
     );
   }

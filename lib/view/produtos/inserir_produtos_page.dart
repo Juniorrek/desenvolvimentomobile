@@ -88,7 +88,7 @@ class _InserirProdutoPageState extends State<InserirProdutoPage> {
       appBar: AppBar(
         title: const Text("Inserir Produto"),
       ),
-      drawer: const AppDrawer(),
+      //drawer: const AppDrawer(),
       body: _buildForm(context),
     );
   }

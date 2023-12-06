@@ -154,7 +154,7 @@ class _EditarClientePageState extends State<EditarClientePage> {
       appBar: AppBar(
         title: const Text("Editar Cliente"),
       ),
-      drawer: const AppDrawer(),
+      //drawer: const AppDrawer(),
       body: _buildForm(context),
     );
   }

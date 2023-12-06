@@ -138,7 +138,7 @@ class _InserirClienteState extends State<InserirClientePage> {
       appBar: AppBar(
         title: const Text("Inserir Cliente"),
       ),
-      drawer: const AppDrawer(),
+      //drawer: const AppDrawer(),
       body: _buildForm(context),
     );
   }

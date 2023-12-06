@@ -53,23 +53,43 @@ class AppDrawer extends StatelessWidget {
         _createDrawerItem(
             icon: Icons.store,
             text: 'Home',
-            onTap: () =>
-                Navigator.pushReplacementNamed(context, Routes.home)),
+            onTap: () {
+              Navigator.pop(context);
+              if (Navigator.canPop(context)) {
+                Navigator.pop(context);
+              }
+              //Navigator.pushReplacementNamed(context, Routes.home);
+            }),
         _createDrawerItem(
             icon: Icons.groups,
             text: 'Clientes',
-            onTap: () =>
-                Navigator.pushReplacementNamed(context, Routes.clienteList)),
+            onTap: () {
+              Navigator.pop(context);//Drawer
+              if (Navigator.canPop(context)) {
+                Navigator.pop(context);//Retira pagina atual da pilha
+              }
+              Navigator.pushNamed(context, Routes.clienteList);
+            }),
         _createDrawerItem(
             icon: Icons.sell,
             text: 'Produtos',
-            onTap: () =>
-                Navigator.pushReplacementNamed(context, Routes.produtoList)),
+            onTap: () {
+              Navigator.pop(context);
+              if (Navigator.canPop(context)) {
+                Navigator.pop(context);
+              }
+              Navigator.pushNamed(context, Routes.produtoList);
+            }),
         _createDrawerItem(
             icon: Icons.shopping_cart,
             text: 'Pedidos',
-            onTap: () =>
-                Navigator.pushReplacementNamed(context, Routes.pedidoList)),
+            onTap: () {
+              Navigator.pop(context);
+              if (Navigator.canPop(context)) {
+                Navigator.pop(context);
+              }
+              Navigator.pushNamed(context, Routes.pedidoList);
+            }),
         ListTile(
           title: const Text('0.0.1'),
           onTap: () {},
