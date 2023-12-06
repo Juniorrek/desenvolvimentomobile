@@ -64,7 +64,7 @@ class AppDrawer extends StatelessWidget {
             icon: Icons.sell,
             text: 'Produtos',
             onTap: () =>
-                Navigator.pushReplacementNamed(context, Routes.clienteList)),
+                Navigator.pushReplacementNamed(context, Routes.produtoList)),
         _createDrawerItem(
             icon: Icons.shopping_cart,
             text: 'Pedidos',

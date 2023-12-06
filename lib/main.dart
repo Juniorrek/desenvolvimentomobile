@@ -1,9 +1,12 @@
 import 'package:desenvolvimentomobile/routes/routes.dart';
-import 'package:desenvolvimentomobile/view/editar_cliente_page.dart';
-import 'package:desenvolvimentomobile/view/inserir_cliente_page.dart';
-import 'package:desenvolvimentomobile/view/inserir_pedido_page.dart';
-import 'package:desenvolvimentomobile/view/listar_clientes_page.dart';
-import 'package:desenvolvimentomobile/view/listar_pedidos_page.dart';
+import 'package:desenvolvimentomobile/view/clientes/editar_cliente_page.dart';
+import 'package:desenvolvimentomobile/view/clientes/inserir_cliente_page.dart';
+import 'package:desenvolvimentomobile/view/clientes/listar_clientes_page.dart';
+import 'package:desenvolvimentomobile/view/pedidos/inserir_pedido_page.dart';
+import 'package:desenvolvimentomobile/view/pedidos/listar_pedidos_page.dart';
+import 'package:desenvolvimentomobile/view/produtos/editar_produtos_page.dart';
+import 'package:desenvolvimentomobile/view/produtos/inserir_produtos_page.dart';
+import 'package:desenvolvimentomobile/view/produtos/listar_produtos_page.dart';
 import 'package:desenvolvimentomobile/widgets/drawer.dart';
 import 'package:flutter/material.dart';
 
@@ -30,7 +33,11 @@ class MyApp extends StatelessWidget {
         Routes.clienteInsert: (context) => const InserirClientePage(),
         Routes.clienteEdit: (context) => const EditarClientePage(),
         Routes.pedidoList: (context) => const ListarPedidosPage(),
-        Routes.pedidoInsert: (context) => const InserirPedidoPage()
+        Routes.pedidoInsert: (context) => const InserirPedidoPage(),     
+        Routes.produtoList: (context) => const ListarProdutosPage(),
+        Routes.produtoInsert: (context) => const InserirProdutoPage(),
+        Routes.produtoEdit: (context) => const EditarProdutoPage()
+
       },
     );
   }

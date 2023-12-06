@@ -4,7 +4,7 @@ import 'package:desenvolvimentomobile/model/pedido.dart';
 import 'package:desenvolvimentomobile/repositories/cliente_repository.dart';
 import 'package:desenvolvimentomobile/repositories/pedido_repository.dart';
 import 'package:desenvolvimentomobile/routes/routes.dart';
-import 'package:desenvolvimentomobile/view/editar_cliente_page.dart';
+import 'package:desenvolvimentomobile/view/clientes/editar_cliente_page.dart';
 import 'package:desenvolvimentomobile/widgets/drawer.dart';
 import 'package:flutter/material.dart';
 
@@ -106,12 +106,23 @@ class _ListarClientesPageState extends State<ListarClientesPage> {
   }
 
   void _editItem(BuildContext context, int index) {
+<<<<<<< HEAD:lib/view/listar_clientes_page.dart
     Cliente b = _lista[index];
     Navigator.pushNamed(
       context,
       EditarClientePage.routeName,
       arguments: <String, int>{"id": b.id!},
     ).then((value) => _refreshList());
+=======
+    // Cliente b = _lista[index];
+    // Navigator.pushNamed(
+    // context,
+    // EditarClientePage.routeName,
+    // arguments: <String, int>{
+    // "id": b.id!
+    // },
+    // );
+>>>>>>> mmlodi-produto:lib/view/clientes/listar_clientes_page.dart
   }
 
   void _removeItem(BuildContext context, int index) {
