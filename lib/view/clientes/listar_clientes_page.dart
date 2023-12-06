@@ -83,14 +83,14 @@ class _ListarClientesPageState extends State<ListarClientesPage> {
   }
 
   void _editItem(BuildContext context, int index) {
-    /*Cliente b = _lista[index];
-    Navigator.pushNamed(
-    context,
-    EditarClientePage.routeName,
-    arguments: <String, int>{
-    "id": b.id!
-    },
-    );*/
+    // Cliente b = _lista[index];
+    // Navigator.pushNamed(
+    // context,
+    // EditarClientePage.routeName,
+    // arguments: <String, int>{
+    // "id": b.id!
+    // },
+    // );
   }
 
   void _removeItem(BuildContext context, int index) {

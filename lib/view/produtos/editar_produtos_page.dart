@@ -77,13 +77,13 @@ class _EditarProdutoPageState extends State<EditarProdutoPage> {
                     _salvar();
                   }
                 },
-                child: Text('Salvar')
+                child: const Text('Salvar')
               ),
               ElevatedButton(
                 onPressed: () {
                   Navigator.pop(context);
                 },
-                child: Text('Cancelar'),
+                child: const Text('Cancelar'),
               ),
             ])
           ])) // Form

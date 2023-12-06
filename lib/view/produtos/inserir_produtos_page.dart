@@ -40,28 +40,37 @@ class _InserirProdutoState extends State<InserirProdutoPage> {
           key: _formKey,
           child: ListView(shrinkWrap: true, children: [
             Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
-              Text("Descrição: "),
               Expanded(
-                  child: TextFormField(
-                controller: _descricaoController,
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return 'Campo não pode ser vazio';
-                  }
-                  return null;
-                },
-              ))
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 8, vertical: 8),
+                    child: TextFormField(
+                      decoration: const InputDecoration(border: OutlineInputBorder(), labelText: 'Descrição'),
+                        controller: _descricaoController,
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                          return 'Campo não pode ser vazio';
+                          }
+                          return null;
+                        },
+                      )))
+                  
             ]),
-         
-            Row(
+            Row( mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                ElevatedButton(
+                ElevatedButton( 
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
                       _salvar();
                     }
                   },
-                  child: Text('Salvar'),
+                  child: const Text('Salvar'),
+                ),
+                ElevatedButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: const Text('Cancelar'),
                 )
               ],
             )
@@ -71,11 +80,11 @@ class _InserirProdutoState extends State<InserirProdutoPage> {
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
+    return  Scaffold(
       appBar: AppBar(
-        title: Text("Inserir Produto"),
+        title: const Text("Inserir Produto"),
       ),
-      drawer: AppDrawer(),
+      drawer: const AppDrawer(),
       body: _buildForm(context),
     );
   }

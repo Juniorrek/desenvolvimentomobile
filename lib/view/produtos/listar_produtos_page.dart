@@ -2,7 +2,6 @@ import 'package:desenvolvimentomobile/helper/error.dart';
 import 'package:desenvolvimentomobile/model/produto.dart';
 import 'package:desenvolvimentomobile/repositories/produto_repository.dart';
 import 'package:desenvolvimentomobile/routes/routes.dart';
-import 'package:desenvolvimentomobile/view/produtos/editar_produtos_page.dart';
 import 'package:desenvolvimentomobile/widgets/drawer.dart';
 import 'package:flutter/material.dart';
 
@@ -46,7 +45,18 @@ class _ListarProdutosPageState extends State<ListarProdutosPage> {
     return tempLista;
   }
 
-  void _removerProduto(int id) async {}
+  void _removerProduto(Produto produto) async {
+      try {
+      ProdutoRepository repository = ProdutoRepository();
+      await repository.remover(produto.id!).then((value) {
+        _refreshList();
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text('Produto ${produto.id} removido com sucesso.')));
+      });
+    } catch (exception) {
+      showError(context, "Erro removendo produto", exception.toString());
+    }
+  }
 
   void _showItem(BuildContext context, int index) {
     Produto produto = _lista[index];
@@ -78,32 +88,38 @@ class _ListarProdutosPageState extends State<ListarProdutosPage> {
   void _editItem(BuildContext context, int index) {
     Produto b = _lista[index];
     Navigator.pushNamed(
-    context,
-    EditarProdutoPage.routeName,
-    arguments: <String, int>{
-    "id": b.id!
-    },
-    );
+      context,
+      Routes.produtoEdit,
+      arguments: <String, int>{"id": b.id!}
+      ).then((value) => _refreshList());
   }
 
   void _removeItem(BuildContext context, int index) {
-    Produto b = _lista[index]; showDialog( context: context,
-    builder: (BuildContext context) => AlertDialog( title: Text("Remover Produto"),
-    content: Text("Gostaria realmente de remover ${b.descricao}?"), actions: [ TextButton(
-    child: Text("Não"), onPressed: () { Navigator.of(context).pop(); }, ),
-    TextButton( child: Text("Sim"), onPressed: () {
-      _removerProduto(b.id!);
-      _refreshList(); 
-      Navigator.of(context).pop();
-    }, ), ],
-    ));
+    Produto b = _lista[index]; 
+    showDialog( context: context,
+      builder: (BuildContext context) => 
+          AlertDialog( 
+            title: Text("Remover Produto"),
+            content: Text("Gostaria realmente de remover ${b.descricao}?"),
+            actions: [  TextButton(
+                              child: Text("Não"), 
+                              onPressed: () { Navigator.of(context).pop(); }, 
+                            ),
+                        TextButton( child: Text("Sim"), onPressed: () {
+                            _removerProduto(b);
+                            Navigator.of(context).pop();
+                          }, 
+                        ), 
+                      ],
+          )
+    );
   }
 
   ListTile _buildItem(BuildContext context, int index) {
     Produto b = _lista[index];
 
     return ListTile(
-      leading: const Icon(Icons.person),
+      leading: const Icon(Icons.propane), //TODO trocar esse icon pelo de produtos kkkk
       title: Text('${b.id} '),
       subtitle: Text(b.descricao),
       onTap: () {
