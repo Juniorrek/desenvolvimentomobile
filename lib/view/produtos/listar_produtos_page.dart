@@ -133,7 +133,7 @@ class _ListarProdutosPageState extends State<ListarProdutosPage> {
 
     return ListTile(
       leading: const Icon(
-          Icons.propane), //TODO trocar esse icon pelo de produtos kkkk
+          Icons.sell), //TODO trocar esse icon pelo de produtos kkkk
       title: Text('${b.id} '),
       subtitle: Text(b.descricao),
       onTap: () {
